@@ -4,9 +4,10 @@
 	tail中tail[0]、tail[1]存第一个o，tail[n]存放第n个o
 
 	按键说明：
+	wasd和上下左右键控制蛇移动方向
 	j暂停，k取消暂停，x结束游戏
 	enter键切换全角半角字符显示
-
+	按空格键暂停游戏，按其他键继续游戏
 */
 #define _CRT_SECURE_NO_DEPRECATE
 
@@ -298,11 +299,17 @@ void Show_DoubleBuffer()
 //得分提示
 void ShowScore(int x, int y) 
 {
-	setPos(x + STAGE_WIDTH, y + 15);
+	setPos(x + STAGE_WIDTH, y + 16);
 	SetConsoleTextAttribute(h, COLOR_TEXT);
 	cout << "◎当前积分:";
 	SetConsoleTextAttribute(h, COLOR_SCORE);
 	cout << score;
+
+	setPos(x + STAGE_WIDTH, y + 15);
+	SetConsoleTextAttribute(h, COLOR_TEXT);
+	cout << "◎当前难度:";
+	SetConsoleTextAttribute(h, COLOR_SCORE);
+	cout << (int)(score / DIFFICULTY_FACTOR + 1);
 }
 
 //提示信息，函数参数接收文字板块在舞台中的原点坐标，通过initialX控制各行文字相对于原点x坐标的缩进
@@ -337,6 +344,9 @@ void Prompt_info(int x, int y)
 	initialY++;
 	setPos(x + initialX, y + initialY);
 	cout << "    □开始游戏：任意操作键";
+	initialY++;
+	setPos(x + initialX, y + initialY);
+	cout << "    □暂停游戏：空格键";
 	initialY++;
 	setPos(x + initialX, y + initialY);
 	cout << "    □退出游戏：x键退出";
@@ -461,8 +471,19 @@ void Input()
 	//}
 	if (_kbhit())
 	{
+		bool spaceReadyFlag = true;
+		if (isPause == true) {
+			spaceReadyFlag = false;
+		}
+		isPause = false;
+
 		switch (_getch())
 		{
+		case' ':
+			if (spaceReadyFlag == true) {
+				isPause = true;
+			}
+			break;
 		case'w':
 			if (dir != DOWN)
 				dir = UP;
