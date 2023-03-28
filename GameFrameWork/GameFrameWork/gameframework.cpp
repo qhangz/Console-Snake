@@ -464,31 +464,39 @@ void Input()
 		switch (_getch())
 		{
 		case'w':
-			dir = UP;
+			if (dir != DOWN)
+				dir = UP;
 			break;
 		case's':
-			dir = DOWN;
+			if (dir != UP)
+				dir = DOWN;
 			break;
 		case'a':
-			dir = LEFT;
+			if (dir != RIGHT)
+				dir = LEFT;
 			break;
 		case'd':
-			dir = RIGHT;
+			if (dir != LEFT)
+				dir = RIGHT;
 			break;
 		case'x':
 			gameOver = true;
 			break;
 		case'W':
-			dir = UP;
+			if (dir != DOWN)
+				dir = UP;
 			break;
 		case'S':
-			dir = DOWN;
+			if (dir != UP)
+				dir = DOWN;
 			break;
 		case'A':
-			dir = LEFT;
+			if (dir != RIGHT)
+				dir = LEFT;
 			break;
 		case'D':
-			dir = RIGHT;
+			if (dir != LEFT)
+				dir = RIGHT;
 			break;
 		case'X':
 			gameOver = true;
