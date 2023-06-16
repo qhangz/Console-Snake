@@ -471,6 +471,7 @@ void Input()
 	//}
 	if (_kbhit())
 	{
+		//spaceReadyFlag的设置是为了第二次按下空格的时候（暂停时按空格）也能继续游戏
 		bool spaceReadyFlag = true;
 		if (isPause == true) {
 			spaceReadyFlag = false;
